@@ -1,0 +1,24 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %> 
+
+    <div class="container">
+        <h1>Are you sure you want to delete this student</h1>
+            <div class="container">
+                <h2>Name: <%= student.name %>  </h2>
+                <p>Age: <%= student.age %>  </p>
+                <p>Form: <%= student.form %>  </p>
+                <p>Gender: <%= student.gender %>  </p>
+                <p>Grade: <%= student.grade %>  </p>
+                <p>Stream: <%= student.stream %> </p>
+
+                <br> <br>
+                <form action="/details/<%= student._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger delete">Yes Delete Student</button>
+                </form>
+
+                <br>
+                <a href="/<%= student.form %><%= student.stream %> "> <button class="btn btn-success">Go Back</button></a>
+            </div>
+    </div>
+
+<%- include("partials/footer") %> 

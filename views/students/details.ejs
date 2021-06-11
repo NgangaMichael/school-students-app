@@ -1,0 +1,44 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %> 
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="com-md-4">
+                <div class="card" style="width: 20rem; margin-top: 2rem;">
+                <div class="card-body" style="background-color: rgb(196, 194, 191);">
+                    <p class="card-text">PIC</p>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <br>
+                <div class="container form-cont">
+                    <h2>Student Details</h2>
+
+                    <h2>Name: <%= student.name %>  </h2>
+                    <p>Age: <%= student.age %>  </p>
+                    <p>Form: <%= student.form %>  </p>
+                    <p>Gender: <%= student.gender %>  </p>
+                    <p>Grade: <%= student.grade %>  </p>
+                    <p>Stream: <%= student.stream %> </p>
+
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    <div class="container">
+        <br>
+        <a href="/<%= student.form %><%= student.stream %> "> <button class="btn btn-success">Go Back</button></a>
+        <a href="/details/<%= student._id %>/edit"> <button class="btn btn-warning">Edit Details</button></a>
+        
+        <br>
+        <hr>
+        <form action="/details/<%= student._id %>?_method=DELETE" method="POST">
+        <button class="btn btn-danger delete">Delete Student</button>
+        </form>        
+            
+    </div>
+
+<%- include("partials/footer") %> 

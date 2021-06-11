@@ -1,0 +1,46 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %> 
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="com-md-4">
+                <div class="card" style="width: 20rem; margin-top: 2rem;">
+                <div class="card-body" style="background-color: rgb(13, 99, 46);">
+                    <p class="card-text">Three South</p>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <br>
+                <div class="container form-cont">
+                    <h2>Three South Students</h2>
+                    <% if(students.length > 0){ %>
+                        <article>
+                            <ol>
+                            <% for(let student of students) { %>
+                                <li> <%= student.name %>  <a href="/details/<%= student._id %> ">Read More</a></li>
+                            <% } %>
+                            </ol>
+                        </article>
+                    <% } else { %>
+                <h1>No Students Found</h1>
+                <a href="/addstudent"> <button class="btn btn-success">Add Student</button></a>
+
+            <% } %>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    <div class="container">
+        <br>
+        <a href="/formThree"> <button class="btn btn-primary">Go Back</button></a>
+        <br>
+        <hr>
+        <a href="/threeEast"> <button class="btn btn-danger">Three East</button></a>
+        <a href="/threeWest"> <button class="btn btn-warning">Three West</button></a>
+        <a href="/threeNorth"> <button class="btn btn-secondary">Three North</button></a>
+    </div>
+
+<%- include("partials/footer") %> 

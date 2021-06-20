@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
+const multer = require("multer")
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "./views"));
@@ -27,6 +28,27 @@ mongoose.connect("mongodb://localhost:27017/JKUAT", {
 .then(results => console.log("Connected to DB"))
 .catch(err => console.log("Err on connection route", err))
 
+// define storage for images 
+const storage = multer.diskStorage({
+    // destination for files 
+    destination: function (req, file, cb) {
+        cb(null, "./public/uploads/images")
+    },
+    // add back the extensions 
+    filename: function(req, file, cb) {
+        cb(null, Date.now() + file.originalname);
+    }
+});
+
+// upload parameters for multer 
+const upload = multer({
+    storage: storage,
+    limits: {
+        // this is 3 mb 
+        fieldSize: 1024 * 1024 * 3
+    }
+});
+
 // home route 
 app.get("/home", (req, res) => {
     res.render("students/home")
@@ -38,8 +60,16 @@ app.get("/addstudent", (req, res) => {
 });
 
 // post student route 
-app.post("/addstudent", (req, res) => {
-    const student = Students(req.body)
+app.post("/addstudent", upload.single("image"), (req, res) => {
+    const student = new Students({
+        name: req.body.name,
+        gender: req.body.gender,
+        form: req.body.form,
+        age: req.body.age,
+        stream: req.body.stream,
+        grade: req.body.grade,
+        image: req.file.filename,
+    })
     student.save()
     .then(results => res.redirect(`/${student.form}${student.stream}`))
     .catch(err => console.log(err))
@@ -62,7 +92,7 @@ app.get("/details/:id/edit", (req, res) => {
 });
 
 // edit Router, editing student details 
-app.patch("/details/:id", (req, res) => {
+app.patch("/details/:id", upload.single("image"), (req, res) => {
     const {id} = req.params;
     const {name, age, stream, gender, grade, form} = req.body;
     Students.findByIdAndUpdate(id, {
@@ -71,7 +101,8 @@ app.patch("/details/:id", (req, res) => {
         "gender": gender,
         "grade": grade,
         "form": form,
-        "stream": stream
+        "stream": stream,
+        image: req.file.filename
     })
     .then(results => res.redirect(`/${form}${stream}`))
     .catch(err => console.log(err))

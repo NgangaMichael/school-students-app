@@ -16,7 +16,7 @@
                 <div class="container form-cont">
                     <h1>Edit Details</h1>
             <div class="edit">
-                <form action="/details/<%= student._id %>?_method=PATCH "method="POST">
+                <form action="/details/<%= student._id %>?_method=PATCH "method="POST" enctype="multipart/form-data">
                 <label for="name">Name</label>
                 <input class="form-control" type="text" value="<%= student.name %> " required name="name">
                 
@@ -52,6 +52,9 @@
                                 <option value="<%=f%>" <%=student.f===f %> ? selected : "" > <%=f%> </option>
                             <% } %>
                     </select>
+                <br>
+                <label for="image">Upload Image</label>
+                <input type="file" name="image" id="image">
                 <br>
                 <button class="btn btn-warning">Submit Changes</button>
                 <br> <br>

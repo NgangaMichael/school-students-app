@@ -15,7 +15,7 @@
                 <div class="container form-cont">
                     <h1>Add Student Info</h1>
             <div class="Add">
-                        <form action="/addstudent" method="POST">
+            <form action="/addstudent" method="POST" enctype="multipart/form-data">
             <label for="name">Name</label>
             <input class="form-control" type="text" required name="name">
                 
@@ -52,6 +52,9 @@
                         <option value="<%= f %>" <%= f %> > <%= f %> </option>
                     <% } %>
                 </select>
+            <br> <br>
+            <label for="image">Upload Image</label>
+            <input type="file" name="image" id="image">
             <br> <br>
             <button class="btn btn-success">Submit</button>
         </form>
